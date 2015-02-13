@@ -1,12 +1,10 @@
 #!/bin/sh
 
-CLONEREPO='https://github.com/iamthechad/iamthechad.github.io.git'
-CLONEDIR="/opt/ghpages"
-
 echo "Installing puppet"
 puppet_version="$(dpkg -s puppet 2>&1 | grep 'Version:' | cut -d " " -f 2)"
 if [ ! -n "${puppet_version}" ]
     then
+        # We need version 3 of Puppet, so need to add that repo
         wget https://apt.puppetlabs.com/puppetlabs-release-wheezy.deb -O /tmp/puppetlabs-release-wheezy.deb
 
         if [ ! -e '/tmp/puppetlabs-release-wheezy.deb' ]
@@ -31,6 +29,7 @@ if sudo puppet module list | grep -q rvm
     then echo "rvm module already installed"
     else
         sudo puppet module install maestrodev/rvm
+        # RVM 1.26 and higher check signatures, but the module doesn't support that yet
         sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 fi
 

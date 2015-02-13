@@ -2,6 +2,7 @@ $pages_repo = "https://github.com/iamthechad/iamthechad.github.io.git"
 
 $ruby_version = "ruby-2.2.0"
 
+# Install git and clone the desired GH Pages repo
 class gh-repo {
   package { 'git-core':
     ensure => present
@@ -18,6 +19,7 @@ class gh-repo {
   }
 }
 
+# Install all packages needed to run GitHub pages locally
 class ghpages {
   package { "curl": ensure => present }
   ->
@@ -47,6 +49,6 @@ exec{ 'jekyll serve --detach':
   cwd => "/opt/ghpages",
   environment => "GEM_HOME=/usr/local/rvm/gems/${ruby_version}",
   path => "/usr/local/rvm/rubies/${ruby_version}/bin:/usr/local/rvm/gems/${ruby_version}/bin:/usr/local/node/node-default/bin:/usr/bin:/bin",
-  unless => "ps aux | grep jekyll 2>/dev/null",
+  unless => "netstat -ta | grep :4000 2>/dev/null",
   require => Vcsrepo[ "/opt/ghpages" ],
 }
