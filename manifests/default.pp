@@ -45,7 +45,7 @@ class { 'ghpages': }
 ->
 class { 'gh-repo': }
 ->
-exec{ 'jekyll serve --detach':
+exec{ 'jekyll serve --detach --drafts --force_polling':
   cwd => "/opt/ghpages",
   environment => "GEM_HOME=/usr/local/rvm/gems/${ruby_version}",
   path => "/usr/local/rvm/rubies/${ruby_version}/bin:/usr/local/rvm/gems/${ruby_version}/bin:/usr/local/node/node-default/bin:/usr/bin:/bin",

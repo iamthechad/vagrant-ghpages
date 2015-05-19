@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 4000, host: 4000
 
   # Sync a folder on the host to where the code will be checked out in the guest
-  config.vm.synced_folder "www/", "/opt/ghpages", create: true
+  config.vm.synced_folder "ghpages/", "/opt/ghpages", create: true
 
   config.vm.provider "virtualbox" do |vb|
        # Use VBoxManage to customize the VM. For example to change memory:
@@ -33,9 +33,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Remove local files on destroy if vagrant-triggers plugin installed
   # Probably won't work as expected on Windows boxen
-  if Vagrant.has_plugin?("vagrant-triggers")
-      config.trigger.after :destroy do
-        run "rm -Rf www"
-      end
-  end
+  #if Vagrant.has_plugin?("vagrant-triggers")
+  #    config.trigger.after :destroy do
+  #      run "rm -Rf ghpages/"
+  #    end
+  #end
 end
