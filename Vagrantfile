@@ -5,8 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # Everybody else uses Ubuntu, but I like Debian
-  config.vm.box = "chef/debian-7.7"
+  config.vm.box = "box-cutter/ubuntu1404"
 
   # Forward the Jekyll port
   config.vm.network "forwarded_port", guest: 4000, host: 4000
@@ -22,7 +21,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider "parallels" do |v, override|
-       override.vm.box = "parallels/debian-7.7"
        v.name = "GitHub Pages"
        v.memory = 1024
        v.cpus = 2

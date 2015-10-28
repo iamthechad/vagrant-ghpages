@@ -5,14 +5,14 @@ puppet_version="$(dpkg -s puppet 2>&1 | grep 'Version:' | cut -d " " -f 2)"
 if [ ! -n "${puppet_version}" ]
     then
         # We need version 3 of Puppet, so need to add that repo
-        wget https://apt.puppetlabs.com/puppetlabs-release-wheezy.deb -O /tmp/puppetlabs-release-wheezy.deb
+        wget https://apt.puppetlabs.com/puppetlabs-release-trusty.deb -O /tmp/puppetlabs-release-trusty.deb
 
-        if [ ! -e '/tmp/puppetlabs-release-wheezy.deb' ]
+        if [ ! -e '/tmp/puppetlabs-release-trusty.deb' ]
             then
                 echo "Unable to download puppetlabs repository definition. Cannot continue"
                 exit 1
         fi
-        sudo dpkg -i /tmp/puppetlabs-release-wheezy.deb
+        sudo dpkg -i /tmp/puppetlabs-release-trusty.deb
         sudo apt-get update
 
         sudo apt-get -y install puppet
